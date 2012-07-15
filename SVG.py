@@ -1,12 +1,14 @@
 from xml.dom.minidom import Document
 
 class SVG:
-	def __init__(self, x=100, y=100):
+	def __init__(self, x=100, y=100, background_color = "#dddddd", cross_color = "#aaaaaa"):
 		self.doc = Document()
 		self.x = x
 		self.y = y
+		self.background_color = background_color
+		self.cross_color = cross_color
 
-	def create(self, path=None):
+	def create(self):
 		svg_attributes = {}
 		text_attributes = {}
 
@@ -57,42 +59,39 @@ class SVG:
 		y = int((self.y - 2) / 2) + fsize / 2
 		return {"x" : str(x), "y" : str(y)}
 
-	def _create_cross(self, color = "#aaaaaa"):
+	def _create_cross(self):
 		cross = self.doc.createElement("g")
 		line1 = self.doc.createElement("line")
 		line1.setAttribute("x1", "0")
 		line1.setAttribute("y1", "0")
 		line1.setAttribute("x2", str(self.x))
 		line1.setAttribute("y2", str(self.y))
-		line1.setAttribute("style", "stroke:"+color)
+		line1.setAttribute("style", "stroke:"+self.cross_color)
 
 		line2 = self.doc.createElement("line")
 		line2.setAttribute("x1", str(self.x))
 		line2.setAttribute("y1", "0")
 		line2.setAttribute("x2", "0")
 		line2.setAttribute("y2", str(self.y))
-		line2.setAttribute("style", "stroke:"+color)
+		line2.setAttribute("style", "stroke:"+self.cross_color)
 
 		cross.appendChild(line1)
 		cross.appendChild(line2)
 
 		return cross
 
-	def _create_background(self, color = "#dddddd"):
+	def _create_background(self):
 		rect = self.doc.createElement("rect")
 		rect.setAttribute("x", "0")
 		rect.setAttribute("y", "0")
 		rect.setAttribute("width", str(self.x))
 		rect.setAttribute("height", str(self.y))
-		rect.setAttribute("style", "fill:"+color+";stroke:"+color)
+		rect.setAttribute("style", "fill:"+self.background_color+";stroke:"+self.background_color)
 
 		return rect
-
-
-
 
 
 	def pretty_svg(self):
 		return self.doc.toprettyxml(indent="  ")
 	def min_svg(self):
-		return self.doc.toprettyxml(indent="")
+		return self.doc.toprettyxml(indent="").replace("\n", "")

@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<svg height="100px" version="1.1" width="100px" xmlns="http://www.w3.org/2000/svg">
+  <rect height="100" style="fill:#dddddd;stroke:#dddddd" width="100" x="0" y="0"/>
+  <g>
+    <line style="stroke:#aaaaaa" x1="0" x2="100" y1="0" y2="100"/>
+    <line style="stroke:#aaaaaa" x1="100" x2="0" y1="0" y2="100"/>
+  </g>
+  <text font-family="monospace" font-size="12" x="7" y="55">100px x 100px</text>
+</svg>
