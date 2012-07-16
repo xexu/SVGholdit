@@ -28,6 +28,21 @@ class TestSVG(unittest.TestCase):
 		f.write(SVG(x=50, y=150, cross_color="#00FF00").create().min_svg())
 		f.close()
 
+	def test_true_color_invalid_string(self):
+		self.assertFalse(SVG()._true_color("asd"))
+
+	def test_true_color_red(self):
+		self.assertTrue(SVG()._true_color("#ff0000"))
+
+	def test_true_color_invalid_red(self):
+		self.assertFalse(SVG()._true_color("#gf0000"))
+
+	def test_true_color_invalid_green(self):
+		self.assertFalse(SVG()._true_color("#00gg00"))
+
+	def test_true_color_uppercase_blue(self):
+		self.assertTrue(SVG()._true_color("#0000FF"))
+
 
 
 if __name__ == '__main__':

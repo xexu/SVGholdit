@@ -3,10 +3,16 @@ from xml.dom.minidom import Document
 class SVG:
 	def __init__(self, x=100, y=100, background_color = "#dddddd", cross_color = "#aaaaaa"):
 		self.doc = Document()
-		self.x = x
-		self.y = y
-		self.background_color = background_color
-		self.cross_color = cross_color
+		self.x = int(x)
+		self.y = int(y)
+		if self._true_color(background_color):
+			self.background_color = background_color
+		else:
+			self.background_color = "#dddddd"
+		if self._true_color(cross_color):
+			self.cross_color = cross_color
+		else:
+			self.cross_color = "#aaaaaa"
 
 	def create(self):
 		svg_attributes = {}
@@ -89,6 +95,16 @@ class SVG:
 		rect.setAttribute("style", "fill:"+self.background_color+";stroke:"+self.background_color)
 
 		return rect
+
+	def _true_color(self, color):
+		c = color[1:]
+		for element in c:
+			try:
+				int(element)
+			except Exception, e:
+				if not ((element >= 'a' and element <= 'f') or (element >= 'A' and element <= 'Z')):
+					return False
+		return True
 
 
 	def pretty_svg(self):
